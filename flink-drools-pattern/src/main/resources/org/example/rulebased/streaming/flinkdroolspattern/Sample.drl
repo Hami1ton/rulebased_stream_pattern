@@ -1,0 +1,16 @@
+package org.example.rulebased.streaming.flinkdroolspattern;
+unit DrinkRuleUnit;
+
+rule "Child"
+    when
+        /persons[ age < 20 ]
+    then
+        drinkList.add(new Drink("Orange Juice", 100));
+end
+
+rule "Adult"
+    when
+        /persons[ age >= 20 ]
+    then
+        drinkList.add(new Drink("Beer", 200));
+end
