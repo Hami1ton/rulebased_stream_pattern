@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'org.example.rulebased.streaming.flinkdroolspattern'
+group 'org.example.rulebased.streaming.study.flink'
 version '1.0.0-SNAPSHOT'
 
 compileJava.options.encoding = "UTF-8"
@@ -18,11 +18,6 @@ ext {
 }
 
 dependencies {
-    // drools
-    implementation group: 'org.drools', name: 'drools-mvel', version: droolsVersion
-    implementation group: 'org.drools', name: 'drools-xml-support', version: droolsVersion
-    implementation group: 'org.drools', name: 'drools-ruleunits-engine', version: droolsVersion
-
     // Apache Flink
     implementation group: 'org.apache.flink', name: 'flink-streaming-java', version: flinkVersion
     implementation group: 'org.apache.flink', name: 'flink-walkthrough-common', version: flinkVersion
