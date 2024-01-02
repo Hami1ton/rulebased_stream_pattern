@@ -1,4 +1,4 @@
-package org.example.rulebased.streaming.study.flink.firstsample;
+package org.example.rulebased.streaming.study.flink.firstSample;
 
 public class Person {
 
@@ -19,5 +19,5 @@ public class Person {
     public String toString() {
         return "Person(name=" + this.name + ",age" + this.age + ",country=" + this.country + ")";
     }
-     
+
 }

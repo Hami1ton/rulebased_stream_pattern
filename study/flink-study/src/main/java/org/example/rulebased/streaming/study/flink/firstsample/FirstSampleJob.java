@@ -1,4 +1,4 @@
-package org.example.rulebased.streaming.study.flink.firstsample;
+package org.example.rulebased.streaming.study.flink.firstSample;
 
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.streaming.api.datastream.DataStream;

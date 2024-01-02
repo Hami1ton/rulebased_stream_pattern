@@ -1,6 +1,6 @@
 package org.example.rulebased.streaming.study.flink;
 
-import org.example.rulebased.streaming.study.flink.firstsample.FirstSampleJob;
+import org.example.rulebased.streaming.study.flink.firstSample.FirstSampleJob;
 
 public class MainJob {
 
