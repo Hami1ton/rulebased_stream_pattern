@@ -28,7 +28,7 @@ public class RuleTest {
 
         // query result
         FireAlarm fireAlarm = null;
-        var queryResult = session.getQueryResults("FindAlarm");
+        var queryResult = session.getQueryResults("FindAlarm", sensorData.getId());
         if (queryResult.size() == 1) {
             fireAlarm = (FireAlarm) queryResult.toList().get(0).get("$f");
             System.out.println(fireAlarm);

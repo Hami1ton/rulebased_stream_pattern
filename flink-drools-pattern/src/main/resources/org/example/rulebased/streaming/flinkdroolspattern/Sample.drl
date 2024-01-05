@@ -13,6 +13,6 @@ query FindSensorData
     $s: SensorData()
 end
 
-query FindAlarm
-    $f: FireAlarm()
+query FindAlarm(String sensorDataId)
+    $f: FireAlarm(id == sensorDataId)
 end

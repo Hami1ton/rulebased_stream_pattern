@@ -23,6 +23,7 @@ public class FireDetector extends KeyedProcessFunction<Integer, Tuple2<Integer, 
         KieContainer kContainer = kieServices.getKieClasspathContainer();
         KieBase kieBase = kContainer.getKieBase("fireDetect");
         this.session = kieBase.newKieSession();
+        System.out.println("Rule Init Completed!");
     }
 
     @Override
@@ -37,13 +38,14 @@ public class FireDetector extends KeyedProcessFunction<Integer, Tuple2<Integer, 
 
         // query result
         FireAlarm fireAlarm = null;
-        var queryResult = session.getQueryResults("FindAlarm");
-        if (queryResult.size() > 0) {
+        var queryResult = session.getQueryResults("FindAlarm", sensorData.f0);
+        if (queryResult.size() == 1) {
             fireAlarm = (FireAlarm) queryResult.toList().get(0).get("$f");
             // System.out.println(fireAlarm);
             collector.collect(fireAlarm);
         }
 
+        // debug sensor data
         var sensorDataQueryResult = session.getQueryResults("FindSensorData");
         if (sensorDataQueryResult.size() > 0) {
             var debugSensorDatas = sensorDataQueryResult.toList();
