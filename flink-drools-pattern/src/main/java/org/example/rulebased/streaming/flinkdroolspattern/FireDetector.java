@@ -1,4 +1,4 @@
-package org.example.rulebased.streaming.study.flink.fireDetected;
+package org.example.rulebased.streaming.flinkdroolspattern;
 
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
@@ -20,5 +20,5 @@ public class FireDetector extends KeyedProcessFunction<Integer, SensorData, Alar
             collector.collect(alarm);
         }
     }
-
+    
 }

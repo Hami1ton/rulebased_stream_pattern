@@ -1,10 +1,10 @@
-package org.example.rulebased.streaming.study.flink.fireDetected;
+package org.example.rulebased.streaming.flinkdroolspattern;
 
 import java.util.Date;
 
 
 public class Alarm {
-    
+
     // yyyy-MM-ddTHH:mm:ss.SSS
     public Date alarmDate;
 
@@ -20,5 +20,5 @@ public class Alarm {
     public String toString() {
         return "Alarm(alarmDate=" + this.alarmDate + ",temperature=" + this.temperature + ")";
     }
-
+    
 }

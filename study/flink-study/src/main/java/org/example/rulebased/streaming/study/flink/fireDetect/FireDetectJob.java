@@ -1,11 +1,11 @@
-package org.example.rulebased.streaming.study.flink.fireDetected;
+package org.example.rulebased.streaming.study.flink.fireDetect;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 
-public class FireDetectedJob {
+public class FireDetectJob {
 
     public static void executeJob() throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

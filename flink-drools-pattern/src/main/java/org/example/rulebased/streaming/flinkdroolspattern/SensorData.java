@@ -1,9 +1,10 @@
-package org.example.rulebased.streaming.study.flink.fireDetected;
+package org.example.rulebased.streaming.flinkdroolspattern;
 
 import java.util.Date;
 
-public class SensorData {
 
+public class SensorData {
+    
     public int id;
 
     // yyyy-MM-ddTHH:mm:ss.SSS
@@ -35,5 +36,4 @@ public class SensorData {
     public String toString() {
         return "SensorData(id=" + this.id + ",temperature=" + this.temperature + ")";
     }
-
 }
