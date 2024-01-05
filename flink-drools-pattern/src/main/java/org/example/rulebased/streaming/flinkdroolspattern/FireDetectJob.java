@@ -21,11 +21,6 @@ public class FireDetectJob {
                 .keyBy(value -> value.f0)
                 .window(TumblingProcessingTimeWindows.of(Time.seconds(5)))
                 .sum(1);
-        // DataStream<SensorData> stream = env.fromElements(
-        //     new SensorData(1, DateUtils.parseDate("2024-01-04 23:20:02.000", "yyyy-MM-dd HH:mm:ss.SSS"), 30)
-        //     , new SensorData(2, DateUtils.parseDate("2024-01-04 23:20:03.000", "yyyy-MM-dd HH:mm:ss.SSS"), 1000)
-        //     , new SensorData(3, DateUtils.parseDate("2024-01-04 23:20:04.000", "yyyy-MM-dd HH:mm:ss.SSS"), 1100)
-        // );
 
         // operatore
         DataStream<FireAlarm> alarms = dataStream
