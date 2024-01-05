@@ -1,8 +1,11 @@
 package org.example.rulebased.streaming.flinkdroolspattern;
 
 import java.util.Date;
+import org.kie.api.definition.type.Role;
+import org.kie.api.definition.type.Timestamp;
 
-
+@Role(Role.Type.EVENT)
+@Timestamp("date")
 public class SensorData {
     
     public int id;
@@ -24,13 +27,24 @@ public class SensorData {
         return this.id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Date getDate() {
         return this.date;
     }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public int getTemperature() {
         return this.temperature;
+    }
+
+    public void setTemperature(int temperature) {
+        this.temperature = temperature;
     }
 
     public String toString() {

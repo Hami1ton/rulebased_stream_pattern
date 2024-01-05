@@ -21,7 +21,9 @@ public class RuleTest {
         KieBase kieBase = kContainer.getKieBase("fireDetect");
         KieSession session = kieBase.newKieSession();
 
-        session.insert(new SensorData(1, DateUtils.parseDate("2024-01-04 23:20:02.000", "yyyy-MM-dd HH:mm:ss.SSS"), 1300));
+        // execute rule
+        var sensorData = new SensorData(1, DateUtils.parseDate("2024-01-04 23:20:02.000", "yyyy-MM-dd HH:mm:ss.SSS"), 1300);
+        session.insert(sensorData);
         session.fireAllRules();
 
         // query result

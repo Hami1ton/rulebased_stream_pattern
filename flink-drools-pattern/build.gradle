@@ -19,9 +19,7 @@ ext {
 
 dependencies {
     // drools
-    implementation group: 'org.drools', name: 'drools-mvel', version: droolsVersion
-    implementation group: 'org.drools', name: 'drools-xml-support', version: droolsVersion
-    implementation group: 'org.drools', name: 'drools-ruleunits-engine', version: droolsVersion
+    implementation group: 'org.drools', name: 'drools-engine-classic', version: droolsVersion
 
     // Apache Flink
     implementation group: 'org.apache.flink', name: 'flink-streaming-java', version: flinkVersion

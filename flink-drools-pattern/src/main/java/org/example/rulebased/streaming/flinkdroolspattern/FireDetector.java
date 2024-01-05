@@ -1,6 +1,7 @@
 package org.example.rulebased.streaming.flinkdroolspattern;
 
-import org.apache.commons.lang3.time.DateUtils;
+import java.time.Instant;
+import java.util.Date;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
@@ -22,7 +23,7 @@ public class FireDetector extends KeyedProcessFunction<Integer, Tuple2<Integer, 
         KieContainer kContainer = kieServices.getKieClasspathContainer();
         KieBase kieBase = kContainer.getKieBase("fireDetect");
         KieSession session = kieBase.newKieSession();
-        session.insert(new SensorData(1, DateUtils.parseDate("2024-01-04 23:20:02.000", "yyyy-MM-dd HH:mm:ss.SSS"), 1300));
+        session.insert(new SensorData(sensorData.f0, Date.from(Instant.now()), sensorData.f1));
         session.fireAllRules();
 
         // query result
