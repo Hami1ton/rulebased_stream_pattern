@@ -2,7 +2,8 @@ package org.example.rulebased.streaming.flinkdroolspattern;
 
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
-
+import org.drools.ruleunits.api.RuleUnitInstance;
+import org.drools.ruleunits.api.RuleUnitProvider;
 
 public class FireDetector extends KeyedProcessFunction<Integer, SensorData, FireAlarm> {
 
@@ -12,13 +13,19 @@ public class FireDetector extends KeyedProcessFunction<Integer, SensorData, Fire
             Context context,
             Collector<FireAlarm> collector) throws Exception {
 
-        if(sensorData.getTemperature() > 1000) {
-            FireAlarm alarm = new FireAlarm(
-                sensorData.getDate()
-                , sensorData.getTemperature()
-            );
-            collector.collect(alarm);
+        // init rule unit
+        FireDetectRuleUnit drinkRuleUnit = new FireDetectRuleUnit();
+        RuleUnitInstance<FireDetectRuleUnit> instance = RuleUnitProvider.get().createRuleUnitInstance(drinkRuleUnit);
+        drinkRuleUnit.getSensorDatas().add(sensorData);
+
+        // execute rule 
+        instance.fire();
+
+        if(drinkRuleUnit.getAlarmList().size() > 0) {
+            collector.collect(drinkRuleUnit.getAlarmList().get(0));
         }
+
+        instance.close();
     }
     
 }
