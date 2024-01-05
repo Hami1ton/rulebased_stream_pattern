@@ -5,8 +5,12 @@ rule "fire detect"
     when
         $s: SensorData(temperature > 1000)
     then
-        FireAlarm alarm = new FireAlarm($s.getDate(), $s.getTemperature());
+        FireAlarm alarm = new FireAlarm($s.getId(), $s.getDate(), $s.getTemperature());
         insert(alarm);
+end
+
+query FindSensorData
+    $s: SensorData()
 end
 
 query FindAlarm

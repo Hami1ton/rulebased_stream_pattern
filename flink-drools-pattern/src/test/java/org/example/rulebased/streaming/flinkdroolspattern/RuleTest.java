@@ -33,6 +33,7 @@ public class RuleTest {
             fireAlarm = (FireAlarm) queryResult.toList().get(0).get("$f");
             System.out.println(fireAlarm);
         }
+        assertEquals(1, fireAlarm.getId());
         assertEquals(1300, fireAlarm.getTemperature());
     }
 

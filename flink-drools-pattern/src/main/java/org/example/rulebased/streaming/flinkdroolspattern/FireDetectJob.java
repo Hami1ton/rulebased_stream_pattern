@@ -6,10 +6,10 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Collector;
 
+
 public class FireDetectJob {
 
     public static void main(String[] args) throws Exception {
-        
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         // source
@@ -35,5 +35,5 @@ public class FireDetectJob {
             String[] words = sentence.split(",");
             out.collect(new Tuple2<Integer, Integer>(Integer.parseInt(words[0]), Integer.parseInt(words[1])));
         }
-    }    
+    }
 }
