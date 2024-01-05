@@ -19,7 +19,7 @@ public class FireDetectJob {
         );
 
         // operatore
-        DataStream<Alarm> alarms = flintstones
+        DataStream<FireAlarm> alarms = flintstones
             .keyBy(SensorData::getId)
             .process(new FireDetector())
             .name("fire-detector");

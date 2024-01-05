@@ -4,16 +4,16 @@ import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
 
 
-public class FireDetector extends KeyedProcessFunction<Integer, SensorData, Alarm> {
+public class FireDetector extends KeyedProcessFunction<Integer, SensorData, FireAlarm> {
 
     @Override
     public void processElement(
             SensorData sensorData,
             Context context,
-            Collector<Alarm> collector) throws Exception {
+            Collector<FireAlarm> collector) throws Exception {
 
         if(sensorData.getTemperature() > 1000) {
-            Alarm alarm = new Alarm(
+            FireAlarm alarm = new FireAlarm(
                 sensorData.getDate()
                 , sensorData.getTemperature()
             );

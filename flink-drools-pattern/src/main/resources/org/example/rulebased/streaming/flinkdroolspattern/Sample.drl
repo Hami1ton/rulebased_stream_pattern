@@ -1,16 +1,10 @@
 package org.example.rulebased.streaming.flinkdroolspattern;
-unit DrinkRuleUnit;
+unit FireDetectRuleUnit;
 
-rule "Child"
+rule "fire detect"
     when
-        /persons[ age < 20 ]
+        $s: /sensorDatas[ temperature > 1000 ]
     then
-        drinkList.add(new Drink("Orange Juice", 100));
-end
-
-rule "Adult"
-    when
-        /persons[ age >= 20 ]
-    then
-        drinkList.add(new Drink("Beer", 200));
+        FireAlarm alarm = new FireAlarm($s.getDate(), $s.getTemperature());
+        alarmList.add(alarm);
 end
