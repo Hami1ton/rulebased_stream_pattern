@@ -3,13 +3,15 @@ package org.example.rulebased.streaming.flinkdroolspattern;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.ParseException;
+import java.time.Instant;
+import java.util.Date;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.Test;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+
 
 public class RuleTest {
 
@@ -22,7 +24,7 @@ public class RuleTest {
         KieSession session = kieBase.newKieSession();
 
         // execute rule
-        var sensorData = new SensorData(1, DateUtils.parseDate("2024-01-04 23:20:02.000", "yyyy-MM-dd HH:mm:ss.SSS"), 1300);
+        var sensorData = new SensorData(1, Date.from(Instant.now()), 1300);
         session.insert(sensorData);
         session.fireAllRules();
 

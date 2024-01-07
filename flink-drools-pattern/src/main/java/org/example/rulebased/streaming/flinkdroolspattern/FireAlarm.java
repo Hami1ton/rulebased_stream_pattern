@@ -1,16 +1,8 @@
 package org.example.rulebased.streaming.flinkdroolspattern;
 
 import java.util.Date;
-import org.kie.api.definition.type.Duration;
-import org.kie.api.definition.type.Expires;
-import org.kie.api.definition.type.Role;
-import org.kie.api.definition.type.Timestamp;
 
 
-@Role(Role.Type.EVENT)
-@Timestamp("alarmDate")
-@Duration( "alarmDate" )
-@Expires( "5s" )
 public class FireAlarm {
 
     public int id;

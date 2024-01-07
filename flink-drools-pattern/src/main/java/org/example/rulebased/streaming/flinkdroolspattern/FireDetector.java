@@ -11,6 +11,7 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.apache.flink.configuration.Configuration;
 
+
 public class FireDetector extends KeyedProcessFunction<Integer, Tuple2<Integer, Integer>, FireAlarm> {
 
     KieSession session;
@@ -37,10 +38,9 @@ public class FireDetector extends KeyedProcessFunction<Integer, Tuple2<Integer, 
         session.fireAllRules();
 
         // query result
-        FireAlarm fireAlarm = null;
         var queryResult = session.getQueryResults("FindAlarm", sensorData.f0);
         if (queryResult.size() == 1) {
-            fireAlarm = (FireAlarm) queryResult.toList().get(0).get("$f");
+            FireAlarm fireAlarm = (FireAlarm) queryResult.toList().get(0).get("$f");
             // System.out.println(fireAlarm);
             collector.collect(fireAlarm);
         }

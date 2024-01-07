@@ -1,5 +1,17 @@
 package org.example.rulebased.streaming.flinkdroolspattern;
 
+declare SensorData
+    @role( event )
+    @timestamp( date )
+    @expires( 10s )
+end
+
+declare FireAlarm
+    @role( event )
+    @timestamp( alarmDate )
+    @expires( 5s )
+end
+
 
 rule "fire detect"
     when
