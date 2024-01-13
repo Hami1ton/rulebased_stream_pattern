@@ -24,7 +24,7 @@ public class RuleTest {
         KieSession session = kieBase.newKieSession();
 
         // execute rule
-        var sensorData = new SensorData(1, Date.from(Instant.now()), 1300);
+        var sensorData = new SensorData(1, Date.from(Instant.now()), 90);
         session.insert(sensorData);
         session.fireAllRules();
 
@@ -36,7 +36,7 @@ public class RuleTest {
             System.out.println(fireAlarm);
         }
         assertEquals(1, fireAlarm.getId());
-        assertEquals(1300, fireAlarm.getTemperature());
+        assertEquals(90, fireAlarm.getTemperature());
     }
 
 }
