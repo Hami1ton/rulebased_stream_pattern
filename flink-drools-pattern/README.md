@@ -17,7 +17,7 @@ nc -lk 9999
 
 - execute main function 
 
-- input values as bellow and press enter in your netcat terminal
+- in your netcat terminal, type values as bellow and hit return 
 ```
 1,80
 2,90

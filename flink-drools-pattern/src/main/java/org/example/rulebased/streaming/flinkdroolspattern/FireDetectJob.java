@@ -12,18 +12,18 @@ public class FireDetectJob {
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        // source
-        DataStream<Tuple2<Integer, Integer>> dataStream = env
-                .socketTextStream("localhost", 9999)
-                .flatMap(new Splitter());
+        // Data Sources
+        DataStream<String> dataStream = env.socketTextStream("localhost", 9999);
 
-        // operatore
+
+        // DataStream Transformations(Operators)
         DataStream<FireAlarm> alarms = dataStream
+            .flatMap(new Splitter())
             .keyBy(value -> value.f0)
             .process(new FireDetector())
             .name("fire-detector");
 
-        // sink
+        // Data Sinks
         alarms.print();
 
         env.execute();
