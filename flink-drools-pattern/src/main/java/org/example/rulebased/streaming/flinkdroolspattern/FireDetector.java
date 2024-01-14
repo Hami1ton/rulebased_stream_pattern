@@ -41,7 +41,6 @@ public class FireDetector extends KeyedProcessFunction<Integer, Tuple2<Integer, 
         var queryResult = session.getQueryResults("FindAlarm", sensorData.f0);
         if (queryResult.size() == 1) {
             FireAlarm fireAlarm = (FireAlarm) queryResult.toList().get(0).get("$f");
-            // System.out.println(fireAlarm);
             collector.collect(fireAlarm);
         }
 
