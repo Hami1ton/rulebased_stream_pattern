@@ -1,8 +1,5 @@
 package org.example.rulebased.streaming.flinkdroolspattern;
 
-import java.time.Instant;
-import java.util.Date;
-import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
 import org.kie.api.KieBase;
@@ -12,7 +9,7 @@ import org.kie.api.runtime.KieSession;
 import org.apache.flink.configuration.Configuration;
 
 
-public class FireDetector extends KeyedProcessFunction<Integer, Tuple2<Integer, Integer>, FireAlarm> {
+public class FireDetector extends KeyedProcessFunction<Integer, SensorData, FireAlarm> {
 
     KieSession session;
 
@@ -29,16 +26,16 @@ public class FireDetector extends KeyedProcessFunction<Integer, Tuple2<Integer, 
 
     @Override
     public void processElement(
-            Tuple2<Integer, Integer> sensorData,
+            SensorData sensorData,
             Context context,
             Collector<FireAlarm> collector) throws Exception {
 
         // execute rule
-        session.insert(new SensorData(sensorData.f0, Date.from(Instant.now()), sensorData.f1));
+        session.insert(sensorData);
         session.fireAllRules();
 
         // query result
-        var queryResult = session.getQueryResults("FindAlarm", sensorData.f0);
+        var queryResult = session.getQueryResults("FindAlarm", sensorData.id);
         if (queryResult.size() == 1) {
             FireAlarm fireAlarm = (FireAlarm) queryResult.toList().get(0).get("$f");
             collector.collect(fireAlarm);
