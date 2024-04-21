@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_4735995C-BC84-43CC-83AE-63C1BB354B5C" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_2CA36BE8-BDF1-41D6-B2ED-EF2900CDFD8E" name="Drink" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://kiegroup.org/dmn/_4735995C-BC84-43CC-83AE-63C1BB354B5C">
+  <dmn:extensionElements/>
+  <dmn:itemDefinition id="_F419B888-C9AC-4BED-81B0-90DEFFB91984" name="Person" isCollection="false">
+    <dmn:itemComponent id="_22B189C3-A7BB-4C6A-B6FB-A472EDE86ED2" name="name" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_383E27E7-527D-4DE9-9442-C4F454032198" name="age" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_C7FBEE79-5809-4321-8478-31CAEFF92B6D" name="Drink" isCollection="false">
+    <dmn:itemComponent id="_00349AEE-E6E3-4A22-BD5C-69604A07984E" name="name" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_F05A4553-CBA1-48FA-A730-31D438183A83" name="charge" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:inputData id="_EC41FE01-0810-4652-B2A4-0EF8406056A1" name="Person">
+    <dmn:extensionElements/>
+    <dmn:variable id="_A57D0545-10D5-49A3-BA92-98079A74858C" name="Person"/>
+  </dmn:inputData>
+  <dmn:decision id="_CB0641CE-29C9-4810-A1A0-22B8D72F6755" name="Drink">
+    <dmn:extensionElements/>
+    <dmn:variable id="_008027E2-ECC6-4E03-AF21-DD2F12560733" name="Drink" typeRef="Drink"/>
+    <dmn:informationRequirement id="_8C462ED9-D9E2-4722-8C77-ECDF986F0675">
+      <dmn:requiredInput href="#_EC41FE01-0810-4652-B2A4-0EF8406056A1"/>
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="_1CE8DA82-8EEA-42C8-9357-693620274C46" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+      <dmn:input id="_EB651BD5-5F23-4395-927C-C14CB7E92246">
+        <dmn:inputExpression id="_5A8ECC4F-0B54-43F5-AD03-9B7F14418409" typeRef="number">
+          <dmn:text>Person.age</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:output id="_D195CD9F-82F1-4287-BBF1-42A300D89C7C" name="name" typeRef="string"/>
+      <dmn:output id="_3B4FEBAC-4909-470F-B65E-76D1C73E47B2" name="charge" typeRef="number"/>
+      <dmn:annotation name="annotation-1"/>
+      <dmn:rule id="_0F477C71-B8FF-4A8D-BCDE-0DDC64546896">
+        <dmn:inputEntry id="_05617BB7-F393-4D41-92C0-E0BAD794A6A4">
+          <dmn:text>&gt;= 20</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_C31DC64D-56F5-42B2-88CE-2200A5CD2EE3">
+          <dmn:text>"Beer"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:outputEntry id="_8A43E778-6D3D-458F-ADD3-C55AEC4793E2">
+          <dmn:text>500</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text/>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="_37EB3C31-5B30-4E84-B50C-4086F02AC3DD">
+        <dmn:inputEntry id="_EC3255E8-81BD-4F2D-A9EA-B3863F955C94">
+          <dmn:text>&lt; 20</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_843D0F84-B791-4E71-9539-6EE406D43AB1">
+          <dmn:text>"Orange Juice"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:outputEntry id="_D655B7E1-DE6B-438F-BDF6-53F420475D18">
+          <dmn:text>300</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text/>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_39423487-8592-4E59-A8ED-2FBDD5BC75EA" name="DRG">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_1CE8DA82-8EEA-42C8-9357-693620274C46">
+            <kie:width>50</kie:width>
+            <kie:width>100</kie:width>
+            <kie:width>251</kie:width>
+            <kie:width>100</kie:width>
+            <kie:width>222</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-drg-_EC41FE01-0810-4652-B2A4-0EF8406056A1" dmnElementRef="_EC41FE01-0810-4652-B2A4-0EF8406056A1" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="556" y="373" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_CB0641CE-29C9-4810-A1A0-22B8D72F6755" dmnElementRef="_CB0641CE-29C9-4810-A1A0-22B8D72F6755" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="556" y="260" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="dmnedge-drg-_8C462ED9-D9E2-4722-8C77-ECDF986F0675" dmnElementRef="_8C462ED9-D9E2-4722-8C77-ECDF986F0675">
+        <di:waypoint x="606" y="398"/>
+        <di:waypoint x="606" y="310"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>
