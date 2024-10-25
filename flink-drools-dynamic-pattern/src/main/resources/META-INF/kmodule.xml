@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+  <kbase name="fireDetect" eventProcessingMode="stream" packages="org.example.rulebased.streaming.flinkdroolsdynamic">
+    <ksession name="default" type="stateful" />
+  </kbase>
+</kmodule>
