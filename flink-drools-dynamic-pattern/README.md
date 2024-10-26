@@ -1,6 +1,5 @@
 # flink-drools-dynamic-pattern
 
-
 ## env 
 
 - WSL
@@ -23,3 +22,9 @@ nc -lk 9999
 2,90
 3,95
 ```
+
+## doc
+
+- [Apache Flink](https://nightlies.apache.org/flink/flink-docs-stable/)
+- [Drools](https://docs.drools.org/8.44.0.Final/drools-docs/drools/introduction/index.html)
+
