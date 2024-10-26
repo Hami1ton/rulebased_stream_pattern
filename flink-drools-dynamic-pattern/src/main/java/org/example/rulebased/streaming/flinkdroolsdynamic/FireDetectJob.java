@@ -11,7 +11,7 @@ import org.apache.flink.util.Collector;
 
 public class FireDetectJob {
 
-    public static void main(String[] args) throws Exception {
+    public static void execute() throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         // Data Sources
