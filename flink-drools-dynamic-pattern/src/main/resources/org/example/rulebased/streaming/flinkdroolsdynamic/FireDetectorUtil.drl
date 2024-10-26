@@ -12,15 +12,6 @@ declare FireAlarm
     @expires( 5s )
 end
 
-
-rule "fire detect"
-    when
-        $s: SensorData(temperature > 50)
-    then
-        FireAlarm alarm = new FireAlarm($s.getId(), $s.getDate(), $s.getTemperature());
-        insert(alarm);
-end
-
 query FindSensorData
     $s: SensorData()
 end
