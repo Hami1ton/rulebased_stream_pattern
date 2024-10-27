@@ -1,15 +1,15 @@
 package org.example.rulebased.streaming.flinkdroolsdynamic.dto;
 
 
-public class Rule {
+public class RuleString {
 
-    private String ruleStr;
+    private String value;
 
-    public Rule(int temperature) {
-        this.ruleStr = getRuleStr(temperature);
+    public RuleString(int temperature) {
+        this.value = createRuleStr(temperature);
     }
 
-    private String getRuleStr(int temperature) {
+    private String createRuleStr(int temperature) {
         String rule = "" +
                    "package org.example.rulebased.streaming.flinkdroolsdynamic; \n" +
                    "rule \"fire detect\" \n" +
@@ -22,7 +22,11 @@ public class Rule {
         return rule;
     }
 
+    public String getValue() {
+        return this.value;
+    }
+
     public String toString() {
-        return this.ruleStr;
+        return this.value;
     }
 }
