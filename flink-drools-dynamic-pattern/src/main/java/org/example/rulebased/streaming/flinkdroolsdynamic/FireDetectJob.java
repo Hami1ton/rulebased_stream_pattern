@@ -7,6 +7,8 @@ import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Collector;
+import org.example.rulebased.streaming.flinkdroolsdynamic.dto.FireAlarm;
+import org.example.rulebased.streaming.flinkdroolsdynamic.dto.SensorData;
 
 
 public class FireDetectJob {

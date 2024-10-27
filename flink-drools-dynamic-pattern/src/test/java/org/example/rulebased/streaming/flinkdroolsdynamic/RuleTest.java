@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.util.Date;
 
+import org.example.rulebased.streaming.flinkdroolsdynamic.dto.FireAlarm;
+import org.example.rulebased.streaming.flinkdroolsdynamic.dto.SensorData;
 import org.junit.jupiter.api.Test;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;

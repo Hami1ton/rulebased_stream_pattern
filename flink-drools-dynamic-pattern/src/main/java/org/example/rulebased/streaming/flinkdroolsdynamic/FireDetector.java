@@ -2,6 +2,8 @@ package org.example.rulebased.streaming.flinkdroolsdynamic;
 
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
+import org.example.rulebased.streaming.flinkdroolsdynamic.dto.FireAlarm;
+import org.example.rulebased.streaming.flinkdroolsdynamic.dto.SensorData;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;

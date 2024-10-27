@@ -1,4 +1,4 @@
-package org.example.rulebased.streaming.flinkdroolsdynamic;
+package org.example.rulebased.streaming.flinkdroolsdynamic.dto;
 
 import java.util.Date;
 
