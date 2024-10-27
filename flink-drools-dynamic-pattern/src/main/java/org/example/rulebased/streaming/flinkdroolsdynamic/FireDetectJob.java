@@ -11,23 +11,35 @@ import org.apache.flink.util.Collector;
 
 public class FireDetectJob {
 
-    public static void execute() throws Exception {
+    public void run() throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        var fireDetecter = new FireDetector();
 
         // Data Sources
-        DataStream<String> dataStream = env.socketTextStream("localhost", 9999);
+        DataStream<String> sensorDatas = env.socketTextStream("localhost", 9999);
 
         // DataStream Transformations(Operators)
-        DataStream<FireAlarm> alarms = dataStream
-            .flatMap(new Splitter())
-            .keyBy(value -> value.id)
-            .process(new FireDetector())
-            .name("fire-detector");
+        DataStream<FireAlarm> alarms = createAlarmStream(fireDetecter, sensorDatas);
 
         // Data Sinks
         alarms.print();
 
         env.execute();
+    }
+
+    private void createRuleStream() {
+
+    }
+
+    private DataStream<FireAlarm> createAlarmStream(FireDetector detector, DataStream<String> sensorDatas) {
+        DataStream<FireAlarm> alarms = sensorDatas
+            .flatMap(new Splitter())
+            .keyBy(value -> value.id)
+            .process(detector)
+            .name("fire-detector");
+
+        return alarms;
+
     }
 
     public static class Splitter implements FlatMapFunction<String, SensorData> {
@@ -38,4 +50,5 @@ public class FireDetectJob {
             out.collect(new SensorData(Integer.parseInt(words[0]), Date.from(Instant.now()), Integer.parseInt(words[1])));
         }
     }
+
 }
