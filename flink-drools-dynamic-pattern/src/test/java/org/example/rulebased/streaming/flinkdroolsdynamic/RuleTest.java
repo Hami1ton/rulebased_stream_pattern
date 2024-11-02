@@ -7,28 +7,25 @@ import java.time.Instant;
 import java.util.Date;
 
 import org.example.rulebased.streaming.flinkdroolsdynamic.dto.FireAlarm;
+import org.example.rulebased.streaming.flinkdroolsdynamic.dto.RuleString;
 import org.example.rulebased.streaming.flinkdroolsdynamic.dto.SensorData;
 import org.junit.jupiter.api.Test;
-import org.kie.api.KieBase;
-import org.kie.api.KieServices;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
 
 
 public class RuleTest {
 
     @Test
     public void test_火災判定ルール() throws ParseException {
-        KieServices kieServices = KieServices.Factory.get();
+        // set up rule
+        RuleString ruleString = new RuleString(20);
+        var kieBase = KieBaseCreater.createFromRuleString(ruleString);
+        var session = kieBase.newKieSession();
 
-        KieContainer kContainer = kieServices.getKieClasspathContainer();
-        KieBase kieBase = kContainer.getKieBase("fireDetect");
-        KieSession session = kieBase.newKieSession();
-
-        // execute rule
+        // insert data
         var sensorData = new SensorData(1, Date.from(Instant.now()), 90);
         session.insert(sensorData);
-        session.fireAllRules();
+        int count = session.fireAllRules();
+        System.out.println(count);
 
         // query result
         FireAlarm fireAlarm = null;
@@ -37,8 +34,8 @@ public class RuleTest {
             fireAlarm = (FireAlarm) queryResult.toList().get(0).get("$f");
             System.out.println(fireAlarm);
         }
+        session.dispose();
         assertEquals(1, fireAlarm.getId());
         assertEquals(90, fireAlarm.getTemperature());
     }
-
 }
