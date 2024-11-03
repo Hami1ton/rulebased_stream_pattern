@@ -23,12 +23,12 @@ nc -lk 9999
 - in your netcat terminal, type values as bellow and hit return 
 ```
 ・for rule data stream
-1,50
+1,50,Rule
 
 ・for sensor data stream
-1,80
-2,90
-3,95
+1,80,Sensor
+2,90,Sensor
+3,95,Sensor
 ```
 
 ## doc
