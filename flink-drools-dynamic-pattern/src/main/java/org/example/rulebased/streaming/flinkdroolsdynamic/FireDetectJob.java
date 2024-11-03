@@ -1,27 +1,32 @@
 package org.example.rulebased.streaming.flinkdroolsdynamic;
 
-import java.time.Instant;
-import java.util.Date;
-
-import org.apache.flink.api.common.functions.FlatMapFunction;
+import org.apache.flink.api.common.state.MapStateDescriptor;
+import org.apache.flink.api.common.typeinfo.Types;
+import org.apache.flink.streaming.api.datastream.BroadcastStream;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.util.Collector;
 import org.example.rulebased.streaming.flinkdroolsdynamic.dto.FireAlarm;
-import org.example.rulebased.streaming.flinkdroolsdynamic.dto.SensorData;
+import org.example.rulebased.streaming.flinkdroolsdynamic.dto.RuleString;
+import org.example.rulebased.streaming.flinkdroolsdynamic.util.RuleDataSplitter;
+import org.example.rulebased.streaming.flinkdroolsdynamic.util.SensorDataSplitter;
 
 
 public class FireDetectJob {
 
     public void run() throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        var fireDetecter = new FireDetector();
 
-        // Data Sources
-        DataStream<String> sensorDatas = env.socketTextStream("localhost", 9999);
+        // Define parallelism 2
+        env.setParallelism(2);
 
-        // DataStream Transformations(Operators)
-        DataStream<FireAlarm> alarms = createAlarmStream(fireDetecter, sensorDatas);
+        MapStateDescriptor<Void, RuleString> bcStateDescriptor = 
+         new MapStateDescriptor<>("kieBaseDesc", Types.VOID, Types.POJO(RuleString.class));
+
+        // Rule Stream
+        BroadcastStream<RuleString> ruleStream = createRuleStream(env).broadcast(bcStateDescriptor);
+        
+        // FireAlarm Stream
+        DataStream<FireAlarm> alarms = createAlarmStream(env, ruleStream);
 
         // Data Sinks
         alarms.print();
@@ -29,28 +34,31 @@ public class FireDetectJob {
         env.execute();
     }
 
-    private void createRuleStream() {
+    private DataStream<RuleString> createRuleStream(StreamExecutionEnvironment env) {
+        // Data Sources
+        DataStream<String> ruleDatas = env.socketTextStream("localhost", 9998);
 
+        var rules = ruleDatas
+            .flatMap(new RuleDataSplitter())
+            .name("rule-updater");
+        return rules;
+        
     }
 
-    private DataStream<FireAlarm> createAlarmStream(FireDetector detector, DataStream<String> sensorDatas) {
-        DataStream<FireAlarm> alarms = sensorDatas
-            .flatMap(new Splitter())
+    private DataStream<FireAlarm> createAlarmStream(StreamExecutionEnvironment env, BroadcastStream<RuleString> ruleStream) {
+        // Data Sources
+        DataStream<String> sensorDatas = env.socketTextStream("localhost", 9999);
+
+        // DataStream Transformations(Operators)
+        var alarms = sensorDatas
+            .flatMap(new SensorDataSplitter())
             .keyBy(value -> value.id)
-            .process(detector)
+            .connect(ruleStream)
+            .process(new FireDetector())
             .name("fire-detector");
 
         return alarms;
 
-    }
-
-    public static class Splitter implements FlatMapFunction<String, SensorData> {
-        @Override
-        public void flatMap(String sentence, Collector<SensorData> out) throws Exception {
-            String[] words = sentence.split(",");
-            
-            out.collect(new SensorData(Integer.parseInt(words[0]), Date.from(Instant.now()), Integer.parseInt(words[1])));
-        }
     }
 
 }

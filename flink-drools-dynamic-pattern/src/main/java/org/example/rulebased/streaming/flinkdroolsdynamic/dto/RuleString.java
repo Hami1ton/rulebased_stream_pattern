@@ -5,6 +5,10 @@ public class RuleString {
 
     private String value;
 
+
+    public RuleString() {
+    }
+
     public RuleString(int temperature) {
         this.value = createRuleStr(temperature);
     }
@@ -31,6 +35,10 @@ public class RuleString {
 
     public String getValue() {
         return this.value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public String toString() {

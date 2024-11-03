@@ -11,6 +11,10 @@
 
 - execute netcat command
 ```
+・for rule data stream
+nc -lk 9998
+
+・for sensor data stream
 nc -lk 9999
 ```
 
@@ -18,6 +22,10 @@ nc -lk 9999
 
 - in your netcat terminal, type values as bellow and hit return 
 ```
+・for rule data stream
+1,50
+
+・for sensor data stream
 1,80
 2,90
 3,95
