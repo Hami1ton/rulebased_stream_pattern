@@ -1,7 +1,13 @@
+import org.example.mrmcore.model.MappingContext;
+import org.example.mrmcore.model.MorphismInstruction;
+import java.util.Map;
+
+global java.util.List instructions;
+
 rule "SystemA_CSV_Mapping"
     when
-        $c : MappingContext(systemId == "SYS_A", sourceField == "item_code")
+        $c : MappingContext(systemId == "SYS_A", sourceField == "item_cd")
     then
         // item_code を symbol にマッピングせよという指示
-        instructions.add(new MorphismInstruction("item_code", "symbol", "DIRECT", Map.of()));
+        instructions.add(new MorphismInstruction("item_cd", "symbol", "DIRECT", Map.of()));
 end
