@@ -13,9 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MorphismEngineTest {
 
-    // テスト: MapからJavaBeanへの単純なマッピング (集信コンテキスト)
     @Test
-    void shouldMapFromMapToBeanCorrectly() {
+    void test_MapからJavaBeanへのマッピング_集信() {
         Map<String, Object> source = Map.of("item_nm", "ABC123");
         TestDataDTO target = new TestDataDTO();
 
@@ -27,9 +26,8 @@ class MorphismEngineTest {
         assertEquals("ABC123", target.getProductId());
     }
 
-    // テスト: JavaBeanからMapへの単純なマッピング (配信コンテキスト)
     @Test
-    void shouldMapFromBeanToMapCorrectly() {
+    void test_JavaBeanからMapへのマッピング_配信() {
         TestDataDTO source = new TestDataDTO();
         source.setProductId("XYZ987");
         Map<String, Object> target = new HashMap<>();
@@ -42,9 +40,8 @@ class MorphismEngineTest {
         assertEquals("XYZ987", target.get("ext_code"));
     }
 
-    // テスト: オプション付きの戦略（Strategy）適用
     @Test
-    void shouldApplyStrategyWithGivenOptions() {
+    void test_オプション付きの戦略の適用() {
         MorphismStrategy suffixStrategy = (value, opts) -> value.toString() + opts.get("ext");
 
         Map<String, MorphismStrategy> strategies = Map.of("SUFFIX", suffixStrategy);
@@ -59,9 +56,8 @@ class MorphismEngineTest {
         assertEquals("ABC-TEST", target.getProductId());
     }
 
-    // テスト: 存在しないフィールドを指定した場合の異常系
     @Test
-    void shouldThrowRuntimeExceptionWhenFieldNotFound() {
+    void test_フィールドが見つからない場合にRuntimeExceptionがスローされること() {
         Map<String, Object> source = Map.of("item_nm", "ABC");
         TestDataDTO target = new TestDataDTO();
 
@@ -72,9 +68,8 @@ class MorphismEngineTest {
         assertThrows(RuntimeException.class, () -> engine.execute(source, target, List.of(instruction)));
     }
 
-    // テスト: 戦略IDが未登録の場合のフォールバック
     @Test
-    void shouldFallbackToDirectMappingWhenStrategyIsMissing() {
+    void test_戦略IDが未登録の場合のフォールバック() {
         Map<String, Object> source = Map.of("item_nm", "FALLBACK");
         TestDataDTO target = new TestDataDTO();
 
