@@ -12,13 +12,15 @@ meta-rule-morphism (Root / Parent POM)
 │       ├── model                # MappingContext, MorphismInstruction
 │       ├── strategy             # MorphismStrategy インフェースと具象クラス
 │       └── util                 # todo
-├── mrm-inbound                  # 外部ファイル → 内部データ変換
+│
+├── mrm-inbound              # 外部ファイル → 内部データ変換
 │   ├── pom.xml
-│   ├── src/main/java/org/example/mrminbound
-│   │   ├── watcher              # WatchService
-│   │   └── service              # 集信フロー制御
-│   └── src/main/resources
-│       └── org/example/mrmcore/rules/inbound  # 変換DRL
+│   └── src/main/java/org/example/mrminbound
+│       ├── reader               # CSVファイルの読み込み・パース
+│       ├── rule                 # Drools連携
+│       ├── model                # 業務モデル（Tradeクラス等）
+│       └── service
+│
 └── mrm-outbound                 # 内部データ → 外部形式
     ├── pom.xml
     ├── src/main/java/org/example/mrmoutbound
@@ -28,7 +30,3 @@ meta-rule-morphism (Root / Parent POM)
         └── org/example/mrmcore/rules/outbound # 変換DRL
 
 ```
-
-## env
-
-
