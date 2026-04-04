@@ -1,0 +1,7 @@
+rule "SystemA_CSV_Mapping"
+    when
+        $c : MappingContext(systemId == "SYS_A", sourceField == "item_code")
+    then
+        // item_code を symbol にマッピングせよという指示
+        instructions.add(new MorphismInstruction("item_code", "symbol", "DIRECT", Map.of()));
+end
