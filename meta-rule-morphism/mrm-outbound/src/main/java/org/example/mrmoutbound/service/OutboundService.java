@@ -1,5 +1,17 @@
 package org.example.mrmoutbound.service;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.example.mrmcore.engine.MorphismEngine;
@@ -7,11 +19,6 @@ import org.example.mrmcore.model.MorphismInstruction;
 import org.example.mrmoutbound.fetcher.TradeFetcher;
 import org.example.mrmoutbound.model.Trade;
 import org.example.mrmoutbound.rule.RuleService;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.*;
 
 public class OutboundService {
     private final TradeFetcher fetcher;
@@ -28,11 +35,15 @@ public class OutboundService {
         List<Trade> trades = fetcher.fetchAll();
         List<Map<String, Object>> outRows = new ArrayList<>();
 
+        Set<String> allFields = Arrays.stream(Trade.class.getDeclaredFields())
+            .map(Field::getName)
+            .collect(Collectors.toSet());
+
         // 1. Trade -> Map への逆変換
         for (Trade trade : trades) {
             Map<String, Object> row = new HashMap<>();
             // 出力項目を決めるためにルールを評価 (Tradeのフィールド一覧を渡す)
-            List<MorphismInstruction> insts = ruleService.evaluate(systemId, Set.of("symbol", "quantity"));
+            List<MorphismInstruction> insts = ruleService.evaluate(systemId, allFields);
             
             // エンジン実行 (Trade から Map へ)
             engine.execute(trade, row, insts);
