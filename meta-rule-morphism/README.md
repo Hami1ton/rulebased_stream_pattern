@@ -15,18 +15,24 @@ meta-rule-morphism (Root / Parent POM)
 │
 ├── mrm-inbound              # 外部ファイル → 内部データ変換
 │   ├── pom.xml
-│   └── src/main/java/org/example/mrminbound
-│       ├── reader               # CSVファイルの読み込み・パース
-│       ├── rule                 # Drools連携
-│       ├── model                # 業務モデル（Tradeクラス等）
-│       └── service
+│   ├── src/main/java/org/example/mrminbound
+│   │   ├── reader               # CSVファイルの読み込み・パース
+│   │   ├── rule                 # Drools連携
+│   │   ├── model                # 業務モデル（Tradeクラス等）
+│   │   └── service
+│   │
+│   └── src/main/resources
+│        └── org/example/mrminbound/ # 変換DRL
 │
 └── mrm-outbound                 # 内部データ → 外部形式
     ├── pom.xml
     ├── src/main/java/org/example/mrmoutbound
     │   ├── fetcher              # DB等からのデータ抽出
+    │   ├── rule                 # Drools連携
+    │   ├── model                # 業務モデル（Tradeクラス等）
     │   └── service              # 配信フロー制御
+    │
     └── src/main/resources
-        └── org/example/mrmcore/rules/outbound # 変換DRL
+        └── org/example/mrmoutbound/ # 変換DRL
 
 ```
