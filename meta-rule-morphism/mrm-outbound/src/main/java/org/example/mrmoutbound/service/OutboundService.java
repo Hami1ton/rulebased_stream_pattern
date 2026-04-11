@@ -51,10 +51,11 @@ public class OutboundService {
         CSVFormat format = CSVFormat.DEFAULT.builder().setHeader(headers).get();
 
         try (FileWriter out = new FileWriter(path.toFile());
-             CSVPrinter printer = new CSVPrinter(out, format)) {
+            CSVPrinter printer = new CSVPrinter(out, format)) {
             for (Map<String, Object> row : rows) {
                 printer.printRecord(row.values());
             }
+
         } catch (IOException e) {
             throw new RuntimeException("CSV出力に失敗しました", e);
         }
