@@ -1,5 +1,8 @@
 # meta-rule-morphism
 
+
+データ項目間マッピングをDRLで実現するための検証プロジェクト。
+
 ## structure
 
 ```
@@ -19,7 +22,7 @@ meta-rule-morphism (Root / Parent POM)
 │   │   ├── reader               # CSVファイルの読み込み・パース
 │   │   ├── rule                 # Drools連携
 │   │   ├── model                # 業務モデル（Tradeクラス等）
-│   │   └── service
+│   │   └── service              # 集信フロー制御
 │   │
 │   └── src/main/resources
 │        └── org/example/mrminbound/ # 変換DRL
