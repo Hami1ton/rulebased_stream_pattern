@@ -1,0 +1,22 @@
+package org.example.rules.outbound;
+
+import org.example.mrmcore.model.MappingContext;
+import org.example.mrmcore.model.MorphismInstruction;
+import java.util.Map;
+
+// Java側から渡される指示書リスト
+global java.util.List instructions;
+
+rule "SYS_B: 銘柄記号を PRODUCT_CODE として出力"
+    when
+        $c : MappingContext(systemId == "SYS_B", sourceField == "symbol")
+    then
+        instructions.add(new MorphismInstruction("symbol", "PRODUCT_CODE", "DIRECT", Map.of()));
+end
+
+rule "SYS_B: 数量を QTY として出力"
+    when
+        $c : MappingContext(systemId == "SYS_B", sourceField == "quantity")
+    then
+        instructions.add(new MorphismInstruction("quantity", "QTY", "DIRECT", Map.of()));
+end
